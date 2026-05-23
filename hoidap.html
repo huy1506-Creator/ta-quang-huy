@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aristino — FAQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 100px 100px 80px;
+            position: relative; overflow: hidden;
+        }
+        .page-hero::before {
+            content: 'FAQ';
+            position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
+            font-family: var(--font-display); font-size: 14rem; font-weight: 300;
+            color: rgba(201,168,76,0.05); letter-spacing: 10px; pointer-events: none;
+        }
+        .page-hero .section-title { color: var(--white); margin-bottom: 16px; }
+        .page-hero p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        .faq-wrap { display: grid; grid-template-columns: 250px 1fr; gap: 0; min-height: 60vh; }
+        .faq-tabs {
+            background: var(--navy);
+            padding: 40px 0;
+            position: sticky; top: 98px; height: fit-content;
+        }
+        .faq-tab {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 28px; cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+            font-size: 0.83rem; color: rgba(255,255,255,0.45); font-weight: 400;
+        }
+        .faq-tab i { width: 16px; color: rgba(255,255,255,0.3); }
+        .faq-tab:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+        .faq-tab.active {
+            border-left-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201,168,76,0.08);
+        }
+        .faq-tab.active i { color: var(--gold); }
+
+        .faq-content { background: var(--off-white); padding: 60px; }
+        .faq-panel { display: none; }
+        .faq-panel.active { display: block; }
+        .faq-panel h2 {
+            font-family: var(--font-display); font-size: 2.2rem; font-weight: 300;
+            color: var(--navy); margin-bottom: 32px;
+        }
+        .faq-item {
+            background: var(--white); border-radius: 10px; margin-bottom: 12px;
+            border: 1px solid var(--border); overflow: hidden;
+        }
+        .faq-q {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px; cursor: pointer; transition: var(--transition);
+            font-size: 0.9rem; font-weight: 500; color: var(--navy);
+        }
+        .faq-q:hover { background: var(--off-white); }
+        .faq-q.open { background: var(--navy); color: var(--white); }
+        .faq-q .faq-arrow { font-size: 0.7rem; transition: var(--transition); flex-shrink: 0; }
+        .faq-q.open .faq-arrow { transform: rotate(180deg); color: var(--gold); }
+        .faq-a {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+            font-size: 0.85rem; line-height: 1.8; color: var(--text-muted); font-weight: 300;
+        }
+        .faq-a.open { max-height: 400px; }
+        .faq-a-inner { padding: 20px 24px; border-top: 1px solid var(--border); }
+        .faq-search {
+            display: flex; gap: 12px; margin-bottom: 32px;
+        }
+        .faq-search input {
+            flex: 1; padding: 12px 20px;
+            border: 1.5px solid var(--border); border-radius: 8px;
+            font-family: var(--font-body); font-size: 0.87rem;
+            outline: none; transition: var(--transition);
+            background: var(--white);
+        }
+        .faq-search input:focus { border-color: var(--gold); }
+        .faq-search button {
+            padding: 12px 20px; background: var(--navy); color: var(--white);
+            border: none; border-radius: 8px; cursor: pointer; transition: var(--transition);
+        }
+        .faq-search button:hover { background: var(--gold); color: var(--navy); }
+    </style>
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader-logo">ARISTINO</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
+<nav class="sidenav">
+    <div class="sidenav-logo">A</div>
+    <ul>
+        <li><a href="index.html" data-tip="Trang chủ"><i class="fa-solid fa-house"></i></a></li>
+        <li><a href="dichvu.html" data-tip="Dịch vụ"><i class="fa-solid fa-star"></i></a></li>
+        <li><a href="cskh.html" data-tip="Hỗ trợ"><i class="fa-solid fa-headset"></i></a></li>
+        <li><a href="hoidap.html" class="active" data-tip="FAQ"><i class="fa-solid fa-circle-question"></i></a></li>
+        <li><a href="lienhe.html" data-tip="Liên hệ"><i class="fa-solid fa-envelope"></i></a></li>
+    </ul>
+    <div class="sidenav-bottom">
+        <a href="giohang.html" class="cart-nav" data-tip="Giỏ hàng"><i class="fa-solid fa-bag-shopping"></i><span class="cart-dot" id="cartDot">0</span></a>
+    </div>
+</nav>
+<div class="main">
+    <header class="header" id="header">
+        <div class="header-inner">
+            <div class="header-brand"><span class="brand-name">ARISTINO</span><span class="brand-sub">Premium Menswear</span></div>
+            <div class="header-cta">
+                <span class="hotline"><i class="fa-solid fa-phone-volume"></i> 1800 6618</span>
+                <a href="cskh.html" class="btn-header">Hỗ trợ ngay</a>
+            </div>
+        </div>
+        <div class="header-ticker"><div class="ticker-track"><span>Miễn phí vận chuyển đơn từ 500K</span><span>•</span><span>Đổi trả miễn phí 30 ngày</span><span>•</span><span>Hỗ trợ 24/7</span><span>•</span><span>Bảo hành 12 tháng</span><span>•</span><span>Miễn phí vận chuyển đơn từ 500K</span><span>•</span><span>Đổi trả miễn phí 30 ngày</span><span>•</span><span>Hỗ trợ 24/7</span><span>•</span><span>Bảo hành 12 tháng</span></div></div>
+    </header>
+
+    <div class="page-hero">
+        <div class="section-label">Câu hỏi thường gặp</div>
+        <h1 class="section-title">Giải đáp<br><em>thắc mắc</em></h1>
+        <p>Tìm câu trả lời nhanh cho các câu hỏi phổ biến nhất</p>
+    </div>
+
+    <div class="faq-wrap">
+        <div class="faq-tabs">
+            <div class="faq-tab active" data-panel="donhang"><i class="fa-solid fa-box"></i> Đơn hàng</div>
+            <div class="faq-tab" data-panel="doitra"><i class="fa-solid fa-rotate-left"></i> Đổi / Trả hàng</div>
+            <div class="faq-tab" data-panel="size"><i class="fa-solid fa-ruler"></i> Kích cỡ & Vải</div>
+            <div class="faq-tab" data-panel="vip"><i class="fa-solid fa-crown"></i> Thành viên VIP</div>
+            <div class="faq-tab" data-panel="giaohang"><i class="fa-solid fa-truck"></i> Giao hàng</div>
+            <div class="faq-tab" data-panel="thanhtoan"><i class="fa-solid fa-credit-card"></i> Thanh toán</div>
+        </div>
+
+        <div class="faq-content">
+            <div class="faq-search">
+                <input type="text" id="faqSearch" placeholder="Tìm kiếm câu hỏi...">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <!-- ĐƠN HÀNG -->
+            <div class="faq-panel active" id="panel-donhang">
+                <h2>Đơn hàng</h2>
+                <div class="faq-item"><div class="faq-q">Làm thế nào để theo dõi đơn hàng? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Sau khi đặt hàng, bạn sẽ nhận SMS/Email xác nhận kèm mã đơn hàng. Truy cập aristino.com → "Theo dõi đơn hàng" → nhập mã để xem trạng thái. Bạn cũng có thể gọi 1800 6618 để kiểm tra.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Tôi có thể hủy đơn hàng không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Bạn có thể hủy đơn trong vòng 1 giờ sau khi đặt hàng (trước khi xác nhận giao). Liên hệ 1800 6618 hoặc live chat để được hỗ trợ nhanh nhất.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Tôi đặt hàng nhưng chưa nhận được email xác nhận? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Kiểm tra hộp thư spam/junk. Nếu vẫn không có, có thể email nhập sai. Vui lòng liên hệ CSKH với số điện thoại để tra cứu đơn hàng.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Tôi muốn thay đổi địa chỉ giao hàng sau khi đặt? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Liên hệ ngay hotline 1800 6618 trong vòng 2 giờ sau khi đặt hàng. Sau khi đơn đã được giao cho đơn vị vận chuyển, chúng tôi không thể thay đổi địa chỉ.</div></div></div>
+            </div>
+
+            <!-- ĐỔI TRẢ -->
+            <div class="faq-panel" id="panel-doitra">
+                <h2>Đổi / Trả hàng</h2>
+                <div class="faq-item"><div class="faq-q">Chính sách đổi trả của Aristino như thế nào? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Aristino hỗ trợ đổi/trả miễn phí trong 30 ngày kể từ ngày nhận hàng. Sản phẩm cần còn nguyên tag, chưa qua sử dụng, không có mùi lạ hoặc vết bẩn.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Quy trình đổi hàng cụ thể như thế nào? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">1) Liên hệ CSKH qua hotline hoặc live chat để tạo yêu cầu. 2) Nhận phiếu đổi hàng qua email. 3) Mang sản phẩm đến cửa hàng gần nhất hoặc gửi bưu điện (Aristino trả phí ship). 4) Nhận sản phẩm mới trong 1–3 ngày làm việc.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Sản phẩm sale có được đổi trả không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Sản phẩm giảm giá dưới 50% vẫn được đổi/trả. Sản phẩm giảm từ 50% trở lên chỉ được đổi khi có lỗi từ nhà sản xuất.</div></div></div>
+            </div>
+
+            <!-- SIZE -->
+            <div class="faq-panel" id="panel-size">
+                <h2>Kích cỡ & Vải</h2>
+                <div class="faq-item"><div class="faq-q">Aristino có hướng dẫn chọn size không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Có! Mỗi sản phẩm đều có bảng size chi tiết với số đo vòng ngực, vòng eo, chiều dài. Bạn cũng có thể chat với chuyên viên để được tư vấn cá nhân.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Tôi mua sai size, có được đổi không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Hoàn toàn được! Đây là trường hợp đổi hàng phổ biến nhất. Liên hệ CSKH trong vòng 30 ngày để được hỗ trợ đổi size miễn phí.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Aristino có dịch vụ sửa quần áo không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Có, dịch vụ chỉnh sửa miễn phí tại tất cả cửa hàng Aristino. Bao gồm: bo gấu, thu ống quần, chỉnh eo áo. Thời gian 30–60 phút tại chỗ hoặc 1–2 ngày cho các chỉnh sửa phức tạp.</div></div></div>
+            </div>
+
+            <!-- VIP -->
+            <div class="faq-panel" id="panel-vip">
+                <h2>Thành viên VIP</h2>
+                <div class="faq-item"><div class="faq-q">Chương trình thành viên Aristino có những ưu đãi gì? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Thành viên được tích 1 điểm/1.000đ mua hàng. Đạt 500 điểm được lên hạng Silver: ưu đãi 5%. Đạt 2000 điểm được hạng Gold: ưu đãi 10% + quà sinh nhật. Hạng Platinum (5000 điểm): 15% + tư vấn cá nhân riêng.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Điểm thành viên có hết hạn không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Điểm có hiệu lực 24 tháng kể từ ngày tích. Khi tài khoản không có giao dịch trong 12 tháng liên tiếp, điểm sẽ bị khóa tạm thời đến giao dịch tiếp theo.</div></div></div>
+            </div>
+
+            <!-- GIAO HÀNG -->
+            <div class="faq-panel" id="panel-giaohang">
+                <h2>Giao hàng</h2>
+                <div class="faq-item"><div class="faq-q">Thời gian giao hàng là bao lâu? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Nội thành HCM & HN: Giao trong ngày (đặt trước 14:00). Tỉnh thành khác: 1–3 ngày làm việc. Vùng xa, hải đảo: 3–7 ngày làm việc.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Phí vận chuyển như thế nào? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Miễn phí vận chuyển cho đơn từ 500.000đ. Đơn dưới 500.000đ: 30.000đ. Giao hỏa tốc nội thành: 50.000đ thêm.</div></div></div>
+            </div>
+
+            <!-- THANH TOÁN -->
+            <div class="faq-panel" id="panel-thanhtoan">
+                <h2>Thanh toán</h2>
+                <div class="faq-item"><div class="faq-q">Aristino chấp nhận những hình thức thanh toán nào? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">COD (tiền mặt khi nhận hàng), Chuyển khoản ngân hàng, Thẻ Visa/Mastercard/JCB, Ví điện tử (MoMo, ZaloPay, VNPay), Trả góp 0% qua thẻ tín dụng.</div></div></div>
+                <div class="faq-item"><div class="faq-q">Tôi có thể trả góp không? <i class="fa-solid fa-chevron-down faq-arrow"></i></div><div class="faq-a"><div class="faq-a-inner">Aristino hỗ trợ trả góp 0% lãi suất qua thẻ tín dụng các ngân hàng: Vietcombank, Techcombank, ACB, BIDV, Sacombank. Áp dụng cho đơn từ 1.000.000đ, kỳ hạn 3–12 tháng.</div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-bottom" style="padding: 28px 60px;">
+            <span>© 2026 Aristino. All rights reserved.</span>
+            <span><a href="index.html" style="color: var(--gold)">← Về trang chủ</a></span>
+        </div>
+    </footer>
+</div>
+
+<div class="live-chat" id="liveChat">
+    <div class="chat-bubble" id="chatBubble"><i class="fa-solid fa-comment-dots"></i><span class="chat-label">Chat ngay</span></div>
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=100" alt="agent">
+            <div><strong>Aristino Support</strong><span class="online-dot"></span> Đang online</div>
+            <button class="chat-close" id="chatClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-msg bot">Xin chào! Tôi có thể giúp gì cho bạn? 👋</div>
+            <div class="chat-quick">
+                <button onclick="addChat('Tư vấn size')">Tư vấn size</button>
+                <button onclick="addChat('Theo dõi đơn hàng')">Theo dõi đơn</button>
+                <button onclick="addChat('Đổi/trả hàng')">Đổi/trả hàng</button>
+            </div>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+            <button onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    // FAQ tabs
+    document.querySelectorAll('.faq-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.faq-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+        });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(q => {
+        q.addEventListener('click', () => {
+            const answer = q.nextElementSibling;
+            const isOpen = q.classList.contains('open');
+            document.querySelectorAll('.faq-q').forEach(x => { x.classList.remove('open'); x.nextElementSibling.classList.remove('open'); });
+            if (!isOpen) { q.classList.add('open'); answer.classList.add('open'); }
+        });
+    });
+
+    // Search
+    document.getElementById('faqSearch').addEventListener('input', function() {
+        const q = this.value.toLowerCase();
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+</script>
+</body>
+</html>

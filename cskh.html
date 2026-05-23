@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aristino — Hỗ Trợ Khách Hàng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 100px 100px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: 'SUPPORT';
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-display);
+            font-size: 10rem;
+            font-weight: 300;
+            color: rgba(201,168,76,0.06);
+            letter-spacing: 10px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .page-hero .section-title { color: var(--white); margin-bottom: 16px; }
+        .page-hero p { color: rgba(255,255,255,0.5); font-size: 0.9rem; font-weight: 300; }
+
+        .support-channels {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 60px;
+            background: var(--off-white);
+        }
+        .channel-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 36px 28px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .channel-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(201,168,76,0.12);
+        }
+        .channel-icon {
+            width: 64px; height: 64px;
+            background: var(--navy);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+        .channel-card:hover .channel-icon { background: var(--gold); }
+        .channel-icon i { font-size: 1.4rem; color: var(--gold); transition: var(--transition); }
+        .channel-card:hover .channel-icon i { color: var(--navy); }
+        .channel-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .channel-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+        .channel-cta {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .ticket-section { padding: 80px 60px; background: var(--white); }
+        .ticket-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; }
+        .ticket-info h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+        .ticket-info p { font-size: 0.87rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 30px; }
+        .sla-list { display: flex; flex-direction: column; gap: 14px; }
+        .sla-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 18px;
+            background: var(--off-white);
+            border-radius: 10px;
+            border-left: 3px solid var(--gold);
+        }
+        .sla-item i { color: var(--gold); }
+        .sla-item span { font-size: 0.83rem; color: var(--text); }
+        .sla-item strong { color: var(--navy); }
+    </style>
+</head>
+<body>
+<div class="loader" id="loader">
+    <div class="loader-logo">ARISTINO</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<nav class="sidenav">
+    <div class="sidenav-logo">A</div>
+    <ul>
+        <li><a href="index.html" data-tip="Trang chủ"><i class="fa-solid fa-house"></i></a></li>
+        <li><a href="dichvu.html" data-tip="Dịch vụ"><i class="fa-solid fa-star"></i></a></li>
+        <li><a href="cskh.html" class="active" data-tip="Hỗ trợ"><i class="fa-solid fa-headset"></i></a></li>
+        <li><a href="hoidap.html" data-tip="FAQ"><i class="fa-solid fa-circle-question"></i></a></li>
+        <li><a href="lienhe.html" data-tip="Liên hệ"><i class="fa-solid fa-envelope"></i></a></li>
+    </ul>
+    <div class="sidenav-bottom">
+        <a href="giohang.html" class="cart-nav" data-tip="Giỏ hàng">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-dot" id="cartDot">0</span>
+        </a>
+    </div>
+</nav>
+
+<div class="main">
+    <header class="header" id="header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <span class="brand-name">ARISTINO</span>
+                <span class="brand-sub">Premium Menswear</span>
+            </div>
+            <div class="header-cta">
+                <span class="hotline"><i class="fa-solid fa-phone-volume"></i> 1800 6618</span>
+                <a href="index.html" class="btn-header">Trang chủ</a>
+            </div>
+        </div>
+        <div class="header-ticker">
+            <div class="ticker-track">
+                <span>Miễn phí vận chuyển đơn từ 500K</span><span>•</span>
+                <span>Đổi trả miễn phí 30 ngày</span><span>•</span>
+                <span>Hỗ trợ 24/7</span><span>•</span>
+                <span>Bảo hành 12 tháng</span><span>•</span>
+                <span>Miễn phí vận chuyển đơn từ 500K</span><span>•</span>
+                <span>Đổi trả miễn phí 30 ngày</span><span>•</span>
+                <span>Hỗ trợ 24/7</span><span>•</span>
+                <span>Bảo hành 12 tháng</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <div class="section-label">Hỗ trợ khách hàng</div>
+        <h1 class="section-title">Chúng tôi ở đây<br><em>cho bạn</em></h1>
+        <p>Chọn kênh hỗ trợ phù hợp nhất với bạn bên dưới</p>
+    </div>
+
+    <div class="support-channels">
+        <div class="channel-card">
+            <div class="channel-icon"><i class="fa-solid fa-phone"></i></div>
+            <h3>Gọi hotline</h3>
+            <p>Kết nối trực tiếp với chuyên viên trong vòng 30 giây</p>
+            <div class="channel-cta">1800 6618 — Miễn phí</div>
+        </div>
+        <div class="channel-card">
+            <div class="channel-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <h3>Live Chat</h3>
+            <p>Nhắn tin trực tiếp, phản hồi trong vòng 2 phút</p>
+            <div class="channel-cta" onclick="document.getElementById('chatBubble').click()">Bắt đầu chat →</div>
+        </div>
+        <div class="channel-card">
+            <div class="channel-icon"><i class="fa-brands fa-facebook-messenger"></i></div>
+            <h3>Messenger</h3>
+            <p>Nhắn tin qua Facebook, hỗ trợ 8:00–22:00 hàng ngày</p>
+            <div class="channel-cta">fb.com/aristino.vn</div>
+        </div>
+        <div class="channel-card">
+            <div class="channel-icon"><i class="fa-solid fa-envelope"></i></div>
+            <h3>Email</h3>
+            <p>Gửi yêu cầu chi tiết, phản hồi trong vòng 2 giờ</p>
+            <div class="channel-cta">cskh@aristino.com</div>
+        </div>
+    </div>
+
+    <div class="ticket-section">
+        <div class="ticket-grid">
+            <div class="ticket-info">
+                <div class="section-label">Cam kết dịch vụ</div>
+                <h3>Thời gian<br>phản hồi</h3>
+                <p>Aristino cam kết mọi yêu cầu đều được xử lý đúng hạn, minh bạch và chuyên nghiệp.</p>
+                <div class="sla-list">
+                    <div class="sla-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span><strong>Hotline:</strong> Kết nối trong 30 giây</span>
+                    </div>
+                    <div class="sla-item">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <span><strong>Live Chat:</strong> Phản hồi trong 2 phút</span>
+                    </div>
+                    <div class="sla-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span><strong>Email:</strong> Phản hồi trong 2 giờ</span>
+                    </div>
+                    <div class="sla-item">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span><strong>Đổi/trả:</strong> Xử lý trong 1–3 ngày làm việc</span>
+                    </div>
+                    <div class="sla-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span><strong>Khiếu nại:</strong> Giải quyết trong 5 ngày làm việc</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cq-form">
+                <h3>Tạo phiếu hỗ trợ</h3>
+                <form action="submit_ticket.php" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Họ và tên</label>
+                            <input type="text" name="fullname" placeholder="Nguyễn Văn A" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="text" name="phone" placeholder="0912 345 678" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Loại yêu cầu</label>
+                        <select name="request_type" required>
+                            <option value="Tư vấn sản phẩm / size">Tư vấn sản phẩm / size</option>
+                            <option value="Đổi / trả hàng">Đổi / trả hàng</option>
+                            <option value="Theo dõi đơn hàng">Theo dõi đơn hàng</option>
+                            <option value="Khiếu nại chất lượng">Khiếu nại chất lượng</option>
+                            <option value="Thành viên / tích điểm">Thành viên / tích điểm</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung yêu cầu</label>
+                        <textarea name="content" placeholder="Mô tả chi tiết vấn đề của bạn..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span>Gửi phiếu hỗ trợ</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+
+                <div class="form-success" id="formSuccess" style="display: none; margin-top: 20px;">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Phiếu đã được gửi! Chúng tôi sẽ liên hệ sớm.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-bottom" style="padding: 28px 60px;">
+            <span>© 2026 Aristino. All rights reserved.</span>
+            <span><a href="index.html" style="color: var(--gold)">← Về trang chủ</a></span>
+        </div>
+    </footer>
+</div>
+
+<div class="live-chat" id="liveChat">
+    <div class="chat-bubble" id="chatBubble"><i class="fa-solid fa-comment-dots"></i><span class="chat-label">Chat ngay</span></div>
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=100" alt="agent">
+            <div><strong>Aristino Support</strong><span class="online-dot"></span> Đang online</div>
+            <button class="chat-close" id="chatClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-msg bot">Xin chào! Tôi có thể giúp gì cho bạn? 👋</div>
+            <div class="chat-quick">
+                <button onclick="addChat('Tư vấn size')">Tư vấn size</button>
+                <button onclick="addChat('Theo dõi đơn hàng')">Theo dõi đơn</button>
+                <button onclick="addChat('Đổi/trả hàng')">Đổi/trả hàng</button>
+            </div>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+            <button onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('status') === 'success') {
+        const successMsg = document.getElementById('formSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+                window.history.replaceState(null, null, window.location.pathname);
+            }, 5000);
+        }
+    }
+</script>
+
+</body>
+</html>
